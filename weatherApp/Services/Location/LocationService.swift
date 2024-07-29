@@ -6,7 +6,8 @@
 //
 
 import CoreLocation
-final class LocationService: NSObject {
+
+final class LocationService: NSObject, LocationServiceProtocol {
     private let locationManager = CLLocationManager()
     private var locationCompletion: ((Result<CLLocation, Error>) -> Void)?
 
@@ -38,6 +39,8 @@ extension LocationService: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             locationCompletion?(.success(location))
+        } else {
+            locationCompletion?(.failure(LocationError.locationNotFound))
         }
     }
 
@@ -49,9 +52,3 @@ extension LocationService: CLLocationManagerDelegate {
         checkLocationAuthorizationStatus()
     }
 }
-
-enum LocationError: Error {
-    case permissionDenied
-}
-
-//31.5204° N, 74.3587° E Lahore

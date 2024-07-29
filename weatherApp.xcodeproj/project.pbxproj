@@ -21,6 +21,7 @@
 		CE9E02DA2C57974A00B5A40B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE9E02DD2C57974A00B5A40B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CE9E02E42C579B3200B5A40B /* Seceret.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Seceret.plist; sourceTree = "<group>"; };
+		CE9E02E72C579F2500B5A40B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +38,7 @@
 		CE9E02CA2C57974800B5A40B = {
 			isa = PBXGroup;
 			children = (
+				CE9E02E72C579F2500B5A40B /* README.md */,
 				CE9E02D52C57974900B5A40B /* weatherApp */,
 				CE9E02D42C57974900B5A40B /* Products */,
 			);

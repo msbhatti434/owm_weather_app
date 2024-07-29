@@ -16,7 +16,6 @@
 		CE9E02F22C57A90200B5A40B /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E02F12C57A90200B5A40B /* AppConstants.swift */; };
 		CE9E02F42C57A92200B5A40B /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E02F32C57A92200B5A40B /* HTTPMethod.swift */; };
 		CE9E02F62C57A93B00B5A40B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E02F52C57A93B00B5A40B /* Endpoint.swift */; };
-		CE9E02F92C57F42800B5A40B /* LocationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E02F82C57F42800B5A40B /* LocationServiceProtocol.swift */; };
 		CE9E02FB2C57F44600B5A40B /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E02FA2C57F44600B5A40B /* LocationService.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,7 +31,6 @@
 		CE9E02F12C57A90200B5A40B /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		CE9E02F32C57A92200B5A40B /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		CE9E02F52C57A93B00B5A40B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		CE9E02F82C57F42800B5A40B /* LocationServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceProtocol.swift; sourceTree = "<group>"; };
 		CE9E02FA2C57F44600B5A40B /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		CE9E02FC2C57F67100B5A40B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				CE9E02FC2C57F67100B5A40B /* Info.plist */,
+				CE9E02E42C579B3200B5A40B /* Secrets.plist */,
 				CE9E02F02C57A88D00B5A40B /* Resources */,
 				CE9E02E62C579C6700B5A40B /* App */,
 				CE9E02EE2C57A87A00B5A40B /* Persistence */,
@@ -87,7 +86,6 @@
 				CE9E02E92C57A84F00B5A40B /* Views */,
 				CE9E02E82C57A84700B5A40B /* Models */,
 				CE9E02EF2C57A88400B5A40B /* Constants */,
-				CE9E02E42C579B3200B5A40B /* Secrets.plist */,
 				CE9E02DC2C57974A00B5A40B /* Preview Content */,
 			);
 			path = weatherApp;
@@ -182,7 +180,6 @@
 		CE9E02F72C57F41300B5A40B /* Location */ = {
 			isa = PBXGroup;
 			children = (
-				CE9E02F82C57F42800B5A40B /* LocationServiceProtocol.swift */,
 				CE9E02FA2C57F44600B5A40B /* LocationService.swift */,
 			);
 			path = Location;
@@ -265,7 +262,6 @@
 				CE4184912C57F726003A8CF6 /* WeatherViewModel.swift in Sources */,
 				CE9E02F42C57A92200B5A40B /* HTTPMethod.swift in Sources */,
 				CE9E02FB2C57F44600B5A40B /* LocationService.swift in Sources */,
-				CE9E02F92C57F42800B5A40B /* LocationServiceProtocol.swift in Sources */,
 				CE4184932C580998003A8CF6 /* WeatherView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

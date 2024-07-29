@@ -1,6 +1,11 @@
 #  WeatherApp
 ## Description
 A simple app to fetch and display current weather conditions for a user's location and a 5-day forecast from Open Weather MAp API's'.
+### NOTE:-
+    primarily design is inspired from the figma design file : https://www.figma.com/community/file/1019097765306863573
+    
+    
+
 
 ## Requirements
 - Xcode 12+

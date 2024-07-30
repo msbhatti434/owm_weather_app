@@ -8,6 +8,10 @@
 import Foundation
 import CoreLocation
 
+import Foundation
+import CoreLocation
+
 protocol WeatherServiceProtocol {
-    func fetchWeather(for location: CLLocation) async throws -> WeatherResponse
+    func fetchCurrentWeather(latitude: Double, longitude: Double, units: Unit) async throws -> CurrentWeatherResponse
+    func fetchForecast(latitude: Double, longitude: Double, units: Unit) async throws -> ForecastResponse
 }

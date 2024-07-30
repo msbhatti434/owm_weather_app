@@ -9,5 +9,4 @@ import Foundation
 
 struct AppConstants {
     static let baseURL = "https://api.openweathermap.org/data/2.5/"
-    static let apiKey = "YOUR_API_KEY"
 }

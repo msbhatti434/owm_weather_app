@@ -10,18 +10,42 @@ import CoreLocation
 
 struct WeatherService: WeatherServiceProtocol {
     private let networkService: NetworkServiceProtocol
+    private let apiKey: String
 
-    init(networkService: NetworkServiceProtocol = NetworkService()) {
+    init(networkService: NetworkServiceProtocol, apiKey: String) {
         self.networkService = networkService
+        self.apiKey = apiKey
     }
 
-    func fetchWeather(for location: CLLocation) async throws -> WeatherResponse {
-        let urlString = "\(AppConfig.baseURL)/forecast?lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)&appid=\(AppConfig.apiKey)"
-        guard let url = URL(string: urlString) else {
-            throw NetworkError.invalidURL
+    func fetchCurrentWeather(latitude: Double, longitude: Double, units: Unit) async throws -> CurrentWeatherResponse {
+        var components = URLComponents(string: "https://api.openweathermap.org/data/2.5/weather")!
+        components.queryItems = [
+            URLQueryItem(name: "lat", value: "\(latitude)"),
+            URLQueryItem(name: "lon", value: "\(longitude)"),
+            URLQueryItem(name: "units", value: units.queryParameter),
+            URLQueryItem(name: "appid", value: apiKey)
+        ]
+
+        guard let url = components.url else {
+            throw URLError(.badURL)
         }
-        
-        let weatherResponse: WeatherResponse = try await networkService.request(url: url, method: .get)
-        return weatherResponse
+
+        return try await networkService.request(url: url, method: .get)
+    }
+
+    func fetchForecast(latitude: Double, longitude: Double, units: Unit) async throws -> ForecastResponse {
+        var components = URLComponents(string: "https://api.openweathermap.org/data/2.5/forecast")!
+        components.queryItems = [
+            URLQueryItem(name: "lat", value: "\(latitude)"),
+            URLQueryItem(name: "lon", value: "\(longitude)"),
+            URLQueryItem(name: "units", value: units.queryParameter),
+            URLQueryItem(name: "appid", value: apiKey)
+        ]
+
+        guard let url = components.url else {
+            throw URLError(.badURL)
+        }
+
+        return try await networkService.request(url: url, method: .get)
     }
 }

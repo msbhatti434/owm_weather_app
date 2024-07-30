@@ -10,3 +10,4 @@ import Foundation
 protocol NetworkServiceProtocol {
     func request<T: Decodable>(url: URL, method: HTTPMethod) async throws -> T
 }
+

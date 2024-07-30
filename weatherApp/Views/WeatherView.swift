@@ -8,16 +8,46 @@
 import SwiftUI
 
 struct WeatherView: View {
-    @StateObject private var viewModel = WeatherViewModel()
-    
+    @StateObject var viewModel: WeatherViewModel
+
     var body: some View {
         VStack {
-            if let latitude = viewModel.latitude, let longitude = viewModel.longitude {
-                Text("User's location: \(latitude), \(longitude)")
-            } else if let locationError = viewModel.locationError {
-                Text("Error: \(locationError)")
+            if let currentWeather = viewModel.currentWeather {
+                VStack {
+                    Image(systemName: "cloud.sun.fill") // Placeholder for weather icon
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                    Text(currentWeather.name)
+                        .font(.largeTitle)
+                    Text("\(currentWeather.main.temp)°C")
+                        .font(.title)
+                }
+                .padding()
+
+                HStack {
+                    Text("Humidity: \(currentWeather.main.humidity)%")
+//                    Text("Rain: \(currentWeather.rain?.the1H ?? 0)%")
+                }
+                .padding()
+
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(viewModel.forecast) { day in
+                            VStack {
+                                Text(day.dayOfWeek)
+                                Image(systemName: "cloud.fill") // Placeholder for weather icon
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                Text("\(day.temperature)°C")
+                            }
+                            .padding()
+                            .background(Color.gray.opacity(0.2))
+                            .cornerRadius(10)
+                        }
+                    }
+                }
             } else {
-                Text("Requesting Location...")
+                Text("Fetching weather data...")
             }
         }
         .onAppear {
@@ -25,5 +55,3 @@ struct WeatherView: View {
         }
     }
 }
-
-

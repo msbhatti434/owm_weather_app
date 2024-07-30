@@ -14,9 +14,9 @@ enum Endpoint {
     var path: String {
         switch self {
         case .currentWeather(let latitude, let longitude):
-            return "weather?lat=\(latitude)&lon=\(longitude)&appid=\(AppConstants.apiKey)"
+            return "weather?lat=\(latitude)&lon=\(longitude)&appid=\(AppConfig.apiKey)"
         case .forecast(let latitude, let longitude):
-            return "forecast?lat=\(latitude)&lon=\(longitude)&appid=\(AppConstants.apiKey)"
+            return "forecast?lat=\(latitude)&lon=\(longitude)&appid=\(AppConfig.apiKey)"
         }
     }
 }

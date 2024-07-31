@@ -11,6 +11,8 @@
 		CE4184932C580998003A8CF6 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4184922C580998003A8CF6 /* WeatherView.swift */; };
 		CE55FDED2C581F6F00053D32 /* ForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE55FDEC2C581F6F00053D32 /* ForecastResponse.swift */; };
 		CE59F55C2C5AB66700C1882B /* WeatherDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59F55B2C5AB66700C1882B /* WeatherDetailView.swift */; };
+		CE59F5612C5AC13300C1882B /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59F5602C5AC13300C1882B /* UserDefaultsService.swift */; };
+		CE59F5632C5AC16D00C1882B /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59F5622C5AC16D00C1882B /* UserDefaultsKeys.swift */; };
 		CE69A24A2C58177400D593AE /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE69A2492C58177400D593AE /* AppConfig.swift */; };
 		CE69A24D2C5817C100D593AE /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE69A24C2C5817C100D593AE /* WeatherService.swift */; };
 		CE69A24F2C58187400D593AE /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE69A24E2C58187400D593AE /* NetworkServiceProtocol.swift */; };
@@ -42,6 +44,8 @@
 		CE4184922C580998003A8CF6 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		CE55FDEC2C581F6F00053D32 /* ForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastResponse.swift; sourceTree = "<group>"; };
 		CE59F55B2C5AB66700C1882B /* WeatherDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailView.swift; sourceTree = "<group>"; };
+		CE59F5602C5AC13300C1882B /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
+		CE59F5622C5AC16D00C1882B /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		CE69A2492C58177400D593AE /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		CE69A24C2C5817C100D593AE /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		CE69A24E2C58187400D593AE /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
@@ -105,6 +109,15 @@
 				CEECCA162C597BFC0004CBFA /* ForecastDay.swift */,
 			);
 			path = Forecast;
+			sourceTree = "<group>";
+		};
+		CE59F55F2C5AC10C00C1882B /* Data Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				CE59F5602C5AC13300C1882B /* UserDefaultsService.swift */,
+				CE59F5622C5AC16D00C1882B /* UserDefaultsKeys.swift */,
+			);
+			path = "Data Persistence";
 			sourceTree = "<group>";
 		};
 		CE69A24B2C5817B200D593AE /* Weather */ = {
@@ -203,6 +216,7 @@
 		CE9E02EB2C57A85F00B5A40B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				CE59F55F2C5AC10C00C1882B /* Data Persistence */,
 				CE69A24B2C5817B200D593AE /* Weather */,
 				CE9E02F72C57F41300B5A40B /* Location */,
 			);
@@ -345,11 +359,13 @@
 			files = (
 				CE59F55C2C5AB66700C1882B /* WeatherDetailView.swift in Sources */,
 				CE9E02D72C57974900B5A40B /* weatherAppApp.swift in Sources */,
+				CE59F5632C5AC16D00C1882B /* UserDefaultsKeys.swift in Sources */,
 				CEF50EBF2C581ABA00B8311A /* LocationError.swift in Sources */,
 				CE55FDED2C581F6F00053D32 /* ForecastResponse.swift in Sources */,
 				CE69A24D2C5817C100D593AE /* WeatherService.swift in Sources */,
 				CE69A24A2C58177400D593AE /* AppConfig.swift in Sources */,
 				CEF50EBB2C58196700B8311A /* CurrentWeatherResponse.swift in Sources */,
+				CE59F5612C5AC13300C1882B /* UserDefaultsService.swift in Sources */,
 				CEECCA1F2C59EDE70004CBFA /* ForecastDayView.swift in Sources */,
 				CEF50EBD2C5819A900B8311A /* LocationServiceProtocol.swift in Sources */,
 				CEECCA122C596E950004CBFA /* Unit.swift in Sources */,

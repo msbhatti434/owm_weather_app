@@ -12,11 +12,11 @@ struct ForecastDay: Identifiable {
     let date: Date
     let temperature: Double
     let weatherDescription: String
-    let icon: String
+    let conditionCode: Int
 
-    var dayOfWeek: String {
+    var dayInitials: String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEE"
+        dateFormatter.dateFormat = "EEE" // "EEE" gives three-letter day initials
         return dateFormatter.string(from: date)
     }
 }

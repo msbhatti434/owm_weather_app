@@ -9,7 +9,7 @@ import Foundation
 
 final class WeatherViewModel: ObservableObject {
     @Published var currentWeather: CurrentWeatherResponse?
-    @Published var forecast: [ForecastDay] = []
+    @Published var forecastDays: [ForecastDay] = []
     @Published var errorMessage: String?
     @Published var latitude: Double?
     @Published var longitude: Double?
@@ -48,13 +48,34 @@ final class WeatherViewModel: ObservableObject {
             do {
                 let currentWeather = try await weatherService.fetchCurrentWeather(latitude: latitude, longitude: longitude, units: units)
                 let forecastResponse = try await weatherService.fetchForecast(latitude: latitude, longitude: longitude, units: units)
-                let forecast = forecastResponse.list.map { ForecastDay(date: Date(timeIntervalSince1970: TimeInterval($0.dt)),
-                                                                       temperature: $0.main.temp,
-                                                                       weatherDescription: $0.weather.first?.description ?? "",
-                                                                       icon: $0.weather.first?.icon ?? "") }
+
                 DispatchQueue.main.async {
                     self.currentWeather = currentWeather
-                    self.forecast = forecast
+
+                    let today = Calendar.current.startOfDay(for: Date())
+                    var uniqueForecastDays: [String: ForecastDay] = [:]
+
+                    for forecast in forecastResponse.list {
+                        let forecastDate = Date(timeIntervalSince1970: TimeInterval(forecast.dt))
+                        let forecastDay = Calendar.current.startOfDay(for: forecastDate)
+
+                        if forecastDay > today {
+                            let dayInitials = DateFormatter.localizedString(from: forecastDate, dateStyle: .short, timeStyle: .none)
+
+                            if uniqueForecastDays[dayInitials] == nil {
+                                let forecastDay = ForecastDay(date: forecastDate,
+                                                              temperature: forecast.main.temp,
+                                                              weatherDescription: forecast.weather.first?.description ?? "",
+                                                              conditionCode: forecast.weather.first?.id ?? 0)
+                                uniqueForecastDays[dayInitials] = forecastDay
+                            }
+                        }
+                    }
+
+                    self.forecastDays = uniqueForecastDays.values
+                        .sorted(by: { $0.date < $1.date })
+                        .prefix(5) // Ensures only 5 days are displayed
+                        .map { $0 }
                 }
             } catch {
                 DispatchQueue.main.async {
@@ -64,4 +85,3 @@ final class WeatherViewModel: ObservableObject {
         }
     }
 }
-

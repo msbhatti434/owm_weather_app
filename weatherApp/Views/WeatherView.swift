@@ -8,46 +8,48 @@
 import SwiftUI
 
 struct WeatherView: View {
-    @StateObject var viewModel: WeatherViewModel
+    @StateObject private var viewModel = AppConfigurator.configure()
 
     var body: some View {
         VStack {
             if let currentWeather = viewModel.currentWeather {
                 VStack {
-                    Image(systemName: "cloud.sun.fill") // Placeholder for weather icon
-                        .resizable()
-                        .frame(width: 100, height: 100)
                     Text(currentWeather.name)
                         .font(.largeTitle)
-                    Text("\(currentWeather.main.temp)°C")
-                        .font(.title)
-                }
-                .padding()
+                        .padding()
 
-                HStack {
-                    Text("Humidity: \(currentWeather.main.humidity)%")
-//                    Text("Rain: \(currentWeather.rain?.the1H ?? 0)%")
-                }
-                .padding()
+                    Image(systemName: currentWeather.weather.first?.id.weatherIcon ?? "questionmark" )
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                        .padding()
 
-                ScrollView(.horizontal) {
+                    Text("\(Int(currentWeather.main.temp))°C")
+                        .font(.largeTitle)
+                        .bold()
+
                     HStack {
-                        ForEach(viewModel.forecast) { day in
-                            VStack {
-                                Text(day.dayOfWeek)
-                                Image(systemName: "cloud.fill") // Placeholder for weather icon
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                Text("\(day.temperature)°C")
-                            }
-                            .padding()
-                            .background(Color.gray.opacity(0.2))
-                            .cornerRadius(10)
+                        VStack(alignment: .leading) {
+                            Text("Humidity: \(currentWeather.main.humidity)%")
+                            Text("Pressure: \(currentWeather.main.pressure) hPa")
+                            Text("Wind Speed: \(String(format: "%.2f", currentWeather.wind.speed)) m/s")
+
                         }
                     }
+                    .padding()
                 }
+            }
+
+            if !viewModel.forecastDays.isEmpty {
+                Text("5-Day Forecast")
+                    .font(.title2)
+                    .padding()
+
+                ForecastView(forecastDays: viewModel.forecastDays)
+            } else if let errorMessage = viewModel.errorMessage {
+                Text(errorMessage)
+                    .foregroundColor(.red)
             } else {
-                Text("Fetching weather data...")
+                ProgressView("Loading...")
             }
         }
         .onAppear {
@@ -55,3 +57,4 @@ struct WeatherView: View {
         }
     }
 }
+

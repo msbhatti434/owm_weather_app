@@ -12,8 +12,7 @@ struct weatherAppApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                // Use the AppConfigurator to get the view model
-                WeatherView(viewModel: AppConfigurator.configure())
+                WeatherView()
             }
         }
     }

@@ -13,15 +13,25 @@ struct ForecastDayView: View {
     var body: some View {
         VStack {
             Text(forecastDay.dayInitials)
+                .font(.headline)
+                .bold()
+            
             Image(systemName: forecastDay.conditionCode.weatherIcon)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 40, height: 40)
-            Text("\(Int(forecastDay.temperature))°")
+                .frame(width: 50, height: 50)
+            
+            Text(String(format: "%.1f°C", forecastDay.temperature))
+                            .font(.title)
+                            .fontWeight(.bold)
+            
+            Text(forecastDay.weatherDescription)
+                .font(.caption)
+                .foregroundColor(.gray)
         }
         .padding()
-        .background(Color.white)
-        .cornerRadius(10)
+        .background(Color.blue.opacity(0.1))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
         .shadow(radius: 5)
     }
 }

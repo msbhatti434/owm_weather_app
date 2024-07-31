@@ -12,12 +12,13 @@ struct ForecastView: View {
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
+            HStack(spacing: 16) {
                 ForEach(forecastDays) { day in
                     ForecastDayView(forecastDay: day)
                 }
             }
         }
+        .frame(height: 150)
     }
 }
 

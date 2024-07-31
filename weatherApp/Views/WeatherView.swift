@@ -11,50 +11,45 @@ struct WeatherView: View {
     @StateObject private var viewModel = AppConfigurator.configure()
 
     var body: some View {
-        VStack {
-            if let currentWeather = viewModel.currentWeather {
-                VStack {
-                    Text(currentWeather.name)
-                        .font(.largeTitle)
-                        .padding()
+        NavigationView {
+            VStack {
+                if let weather = viewModel.currentWeather {
+                    VStack(alignment: .center, spacing: 16) {
+                        Image(systemName: weather.weather.first?.id.weatherIcon ?? "questionmark")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 100)
 
-                    Image(systemName: currentWeather.weather.first?.id.weatherIcon ?? "questionmark" )
-                        .resizable()
-                        .frame(width: 100, height: 100)
-                        .padding()
+                        Text(weather.name)
+                            .font(.title)
+                            .bold()
 
-                    Text("\(Int(currentWeather.main.temp))°C")
-                        .font(.largeTitle)
-                        .bold()
+                        Text(String(format: "%.1f°C", weather.main.temp))
+                                               .font(.system(size: 64))
 
-                    HStack {
                         VStack(alignment: .leading) {
-                            Text("Humidity: \(currentWeather.main.humidity)%")
-                            Text("Pressure: \(currentWeather.main.pressure) hPa")
-                            Text("Wind Speed: \(String(format: "%.2f", currentWeather.wind.speed)) m/s")
-
+                            HStack(spacing: 40) {
+                                WeatherDetailView(label: "Humidity", value: "\(weather.main.humidity)%")
+                                WeatherDetailView(label: "Wind Speed", value: "\(String(format: "%.2f", weather.wind.speed)) m/s")
+                            }
                         }
+                        .padding()
+
+                        // Forecast View
+                        ForecastView(forecastDays: viewModel.forecastDays)
+                            .padding()
                     }
-                    .padding()
+                } else if let errorMessage = viewModel.errorMessage {
+                    Text("Error: \(errorMessage)")
+                        .foregroundColor(.red)
+                } else {
+                    Text("Loading...")
                 }
             }
-
-            if !viewModel.forecastDays.isEmpty {
-                Text("5-Day Forecast")
-                    .font(.title2)
-                    .padding()
-
-                ForecastView(forecastDays: viewModel.forecastDays)
-            } else if let errorMessage = viewModel.errorMessage {
-                Text(errorMessage)
-                    .foregroundColor(.red)
-            } else {
-                ProgressView("Loading...")
+            .navigationTitle("Weather")
+            .onAppear {
+                viewModel.requestLocation()
             }
-        }
-        .onAppear {
-            viewModel.requestLocation()
         }
     }
 }
-

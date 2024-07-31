@@ -10,4 +10,5 @@ import Foundation
 enum UserDefaultsKeys {
     static let latitude = "Latitude_Key"
     static let longitude = "Longitude_Key"
+    static let lastWeatherData = "LastWeatherData_Key"
 }

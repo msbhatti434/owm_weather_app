@@ -16,15 +16,26 @@ final class WeatherViewModel: ObservableObject {
 
     private let weatherService: WeatherServiceProtocol
     private let locationService: LocationServiceProtocol
+    private let userDefaultsService: UserDefaultsService
     private let units: Unit
 
-    init(weatherService: WeatherServiceProtocol, locationService: LocationServiceProtocol, units: Unit = .metric) {
-        self.weatherService = weatherService
-        self.locationService = locationService
-        self.units = units
-
+    init(weatherService: WeatherServiceProtocol, locationService: LocationServiceProtocol, units: Unit = .metric, userDefaultsService: UserDefaultsService = UserDefaultsService()) {
+            self.weatherService = weatherService
+            self.locationService = locationService
+            self.units = units
+            self.userDefaultsService = userDefaultsService
+        
         requestLocation()
-    }
+
+            // Retrieve location from UserDefaults if available
+//            if let location = userDefaultsService.getLocation() {
+//                self.latitude = location.coordinate.latitude
+//                self.longitude = location.coordinate.longitude
+//                fetchWeatherData()
+//            } else {
+//                requestLocation()
+//            }
+        }
 
     func requestLocation() {
         locationService.requestLocation { [weak self] result in
@@ -32,6 +43,7 @@ final class WeatherViewModel: ObservableObject {
             case .success(let location):
                 self?.latitude = location.coordinate.latitude
                 self?.longitude = location.coordinate.longitude
+                self?.userDefaultsService.saveLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
                 self?.fetchWeatherData()
             case .failure(let error):
                 self?.errorMessage = error.localizedDescription
@@ -48,10 +60,11 @@ final class WeatherViewModel: ObservableObject {
             do {
                 let currentWeather = try await weatherService.fetchCurrentWeather(latitude: latitude, longitude: longitude, units: units)
                 let forecastResponse = try await weatherService.fetchForecast(latitude: latitude, longitude: longitude, units: units)
+                
+                self.userDefaultsService.saveWeatherData(currentWeather)
 
                 DispatchQueue.main.async {
                     self.currentWeather = currentWeather
-
                     let today = Calendar.current.startOfDay(for: Date())
                     var uniqueForecastDays: [String: ForecastDay] = [:]
 
@@ -74,7 +87,7 @@ final class WeatherViewModel: ObservableObject {
 
                     self.forecastDays = uniqueForecastDays.values
                         .sorted(by: { $0.date < $1.date })
-                        .prefix(5) // Ensures only 5 days are displayed
+                        .prefix(5)
                         .map { $0 }
                 }
             } catch {
